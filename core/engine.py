@@ -4,40 +4,40 @@ class Engine(object):
 	"""docstring for Engine"""
 	def __init__(self):
 		super(Engine, self).__init__()
-		self.plot_types = ['bar','line','pie','histogram','bubble','gantt']
+		self.plot_types = {
+			'bar':'BarChartJSGenerator',
+			'line':'LineChartJSGenerator',
+			'pie':'PieChartJSGenerator',
+			'histogram':'HistogramJSGenerator',
+			'bubble':'BubbleChartJSGenerator',
+			'gantt':'GanttChartJSGenerator'
+		}	
 
-	def replace(self,arg):
+	def generate(self,arg):
 		plot_type = arg.split()[0]
 		params = arg.split()[1]
 
-		if not plot_type in self.plot_types:
-			return arg
+		if not plot_type in self.plot_types.keys():
+			return "alert('PLOT UNSUPPORTED');"
+
+
 		
-		return params
+		
 
-	def parse(self,arg):
-		try:
-			split_lines = re.search(r'(\D+){#(\D+)#}(\D+)',arg).groups()
-			split_lines[2] = self.replace(split_lines[2])
-			return ''.join(split_lines)
-		except AttributeError:
-			return arg
-
-	def render_plot(self,filepath):
+	def render(self,filepath):
 		response = ""
 		with open(filepath,'r') as file:
 			for line in file:
 				try:
-					re.search(r'(\s+)(\D+){#(\D+)#}(\D+)(\s+)',line).groups()
-				except AttributeError:
-					print line
-				response += (self.parse(line))
-
-		return response
+					cmd = re.search(r'{# (.*?) #}',line).groups()[0]
+					js = self.generate(cmd)
+					re.sub(r'({#.*?#})',js,line)
+				except AttributeError:			
+					response += line
 
 filepath = '../examples/test.html'
 x = Engine()
-x.render_plot(filepath)
+print x.render(filepath)
 
 
 
