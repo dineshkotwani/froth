@@ -1,16 +1,17 @@
 import re
+from jsgenerator import *
 
 class Engine(object):
 	"""docstring for Engine"""
 	def __init__(self):
 		super(Engine, self).__init__()
 		self.plot_types = {
-			'bar':'BarChartJSGenerator',
-			'line':'LineChartJSGenerator',
-			'pie':'PieChartJSGenerator',
-			'histogram':'HistogramJSGenerator',
-			'bubble':'BubbleChartJSGenerator',
-			'gantt':'GanttChartJSGenerator'
+			'bar':BarChartJSGenerator,
+			'line':LineChartJSGenerator,
+			'pie':PieChartJSGenerator,
+			'histogram':HistogramJSGenerator,
+			'bubble':BubbleChartJSGenerator,
+			'gantt':GanttChartJSGenerator
 		}	
 
 	def generate(self,arg):
@@ -20,9 +21,8 @@ class Engine(object):
 		if not plot_type in self.plot_types.keys():
 			return "alert('PLOT UNSUPPORTED');"
 
+		return self.plot_types[plot_type]().make(params)
 
-		
-		
 
 	def render(self,filepath):
 		response = ""
@@ -31,9 +31,11 @@ class Engine(object):
 				try:
 					cmd = re.search(r'{# (.*?) #}',line).groups()[0]
 					js = self.generate(cmd)
-					re.sub(r'({#.*?#})',js,line)
+					response += re.sub(r'({#.*?#})',js,line)
 				except AttributeError:			
 					response += line
+
+		return response
 
 filepath = '../examples/test.html'
 x = Engine()
