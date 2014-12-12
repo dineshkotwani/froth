@@ -12,7 +12,7 @@ class Engine(object):
 			'histogram':HistogramJSGenerator,
 			'bubble':BubbleChartJSGenerator,
 			'gantt':GanttChartJSGenerator
-		}	
+		}
 
 	def generate(self,arg):
 		plot_type = arg.split()[0]
