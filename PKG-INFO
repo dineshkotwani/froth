@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: baymax
+Version: 0.0.1
+Summary: Data Visualization Template Engine for Django/Flask
+Home-page: http://pypi.python.org/pypi/baymax/
+Author: Vijay Sharma Yellepeddi
+Author-email: vijay.tyren@gmail.com
+License: LICENSE.txt
+Description: UNKNOWN
+Platform: UNKNOWN

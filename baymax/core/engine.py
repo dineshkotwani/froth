@@ -37,10 +37,6 @@ class Engine(object):
 
 		return response
 
-filepath = '../examples/test.html'
-x = Engine()
-print x.render(filepath)
-
 
 
 
