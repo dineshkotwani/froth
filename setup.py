@@ -2,13 +2,13 @@
 from distutils.core import setup
 
 setup(
-    name='baymax',
-    version='0.0.4',
+    name='froth',
+    version='0.0.1',
     author='Vijay Sharma Yellepeddi',
-    author_email='vijay.tyren@gmail.com',
-    packages=['baymax','baymax.core', 'baymax.test','baymax.examples'],
-    url='http://pypi.python.org/pypi/baymax/',
+    author_email='vijaysharma.yellepeddi@gmail.com',
+    packages=['froth','froth.core', 'froth.test','froth.examples'],
+    url='http://pypi.python.org/pypi/froth/',
     license='LICENSE.txt',
-    description='Data Visualization Template Engine for Django/Flask',
+    description='Data Visualization Template Engine for Django/Flask=',
     long_description=open('README.txt').read(),
 )
